@@ -1,4 +1,4 @@
-import pygame
+import pygame as py
 import sys
 
 from Const import *
@@ -9,9 +9,9 @@ from move import Move
 
 class Main:
     def __init__(self):
-        pygame.init()
-        self.screen = pygame.display.set_mode((Width, Height))
-        pygame.display.set_caption("CHESS AI")
+        py.init()
+        self.screen = py.display.set_mode((Width, Height))
+        py.display.set_caption("CHESS AI")
         self.game = Game()
 
     def mainloop(self):
@@ -31,14 +31,14 @@ class Main:
             if dragger.dragging:
                 dragger.update_blit(screen)
 
-            for event in pygame.event.get():
+            for event in py.event.get():
 
           
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == py.MOUSEBUTTONDOWN:
                     dragger.update_mouse(event.pos)
 
-                    clicked_row = dragger.mouseY // SQSIZE
-                    clicked_col = dragger.mouseX // SQSIZE
+                    clicked_row = dragger.mouseY // SqSize
+                    clicked_col = dragger.mouseX // SqSize
 
                     
                     if board.squares[clicked_row][clicked_col].has_piece():
@@ -54,9 +54,9 @@ class Main:
                             game.show_moves(screen)
                             game.show_pieces(screen)
 
-                elif event.type == pygame.MOUSEMOTION:
-                    motion_row = event.pos[1] // SQSIZE
-                    motion_col = event.pos[0] // SQSIZE
+                elif event.type == py.MOUSEMOTION:
+                    motion_row = event.pos[1] // SqSize
+                    motion_col = event.pos[0] // SqSize
 
                     game.set_hover(motion_row, motion_col)
 
@@ -69,13 +69,13 @@ class Main:
                         game.show_pieces(screen)
                         game.show_hover(screen)
                         dragger.update_blit(screen)
-                elif event.type == pygame.MOUSEBUTTONUP:
+                elif event.type == py.MOUSEBUTTONUP:
 
                     if dragger.dragging:
                         dragger.update_mouse(event.pos)
 
-                        released_row = dragger.mouseY // SQSIZE
-                        released_col = dragger.mouseX // SQSIZE
+                        released_row = dragger.mouseY // SqSize
+                        released_col = dragger.mouseX // SqSize
 
                         initial = Square(dragger.initial_row, dragger.initial_col)
                         final = Square(released_row, released_col)
@@ -96,19 +96,19 @@ class Main:
 
                     dragger.undrag_piece()
 
-                elif event.type == pygame.KEYDOWN:
+                elif event.type == py.KEYDOWN:
 
-                    if event.key == pygame.K_t:
+                    if event.key == py.K_t:
                         game.change_theme()
 
-                    if event.key == pygame.K_r:
+                    if event.key == py.K_r:
                         game.reset()
                         game = self.game
                         board = self.game.board
                         dragger = self.game.dragger
 
-                elif event.type == pygame.QUIT:
-                    pygame.quit()
+                elif event.type == py.QUIT:
+                    py.quit()
                     sys.exit()
 
 
